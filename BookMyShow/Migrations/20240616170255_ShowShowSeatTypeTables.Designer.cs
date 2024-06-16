@@ -4,6 +4,7 @@ using BookMyShow.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookMyShow.Migrations
 {
     [DbContext(typeof(BookMyShowContext))]
-    partial class BookMyShowContextModelSnapshot : ModelSnapshot
+    [Migration("20240616170255_ShowShowSeatTypeTables")]
+    partial class ShowShowSeatTypeTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,55 +103,6 @@ namespace BookMyShow.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
-                });
-
-            modelBuilder.Entity("BookMyShow.Model.Payments", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<float>("Amount")
-                        .HasColumnType("real");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PaymentProvideId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Provider")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ReferenceID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TicketId");
-
-                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("BookMyShow.Model.Seat", b =>
@@ -253,56 +207,6 @@ namespace BookMyShow.Migrations
                     b.ToTable("Shows");
                 });
 
-            modelBuilder.Entity("BookMyShow.Model.ShowSeat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SeatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SeatStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShowId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SeatId");
-
-                    b.HasIndex("ShowId");
-
-                    b.ToTable("ShowSeats");
-                });
-
-            modelBuilder.Entity("BookMyShow.Model.ShowSeatTickets", b =>
-                {
-                    b.Property<int>("ShowSeatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ShowSeatId", "TicketId");
-
-                    b.HasIndex("TicketId");
-
-                    b.ToTable("showSeatTickets");
-                });
-
             modelBuilder.Entity("BookMyShow.Model.ShowSeatType", b =>
                 {
                     b.Property<int>("Id")
@@ -367,44 +271,6 @@ namespace BookMyShow.Migrations
                     b.ToTable("Theaters");
                 });
 
-            modelBuilder.Entity("BookMyShow.Model.Ticket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.Property<int>("ShowId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShowId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Tickets");
-                });
-
             modelBuilder.Entity("BookMyShow.Model.User", b =>
                 {
                     b.Property<int>("Id")
@@ -452,15 +318,6 @@ namespace BookMyShow.Migrations
                     b.Navigation("Theater");
                 });
 
-            modelBuilder.Entity("BookMyShow.Model.Payments", b =>
-                {
-                    b.HasOne("BookMyShow.Model.Ticket", null)
-                        .WithMany("Payments")
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BookMyShow.Model.Seat", b =>
                 {
                     b.HasOne("BookMyShow.Model.Hall", "Hall")
@@ -499,44 +356,6 @@ namespace BookMyShow.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("BookMyShow.Model.ShowSeat", b =>
-                {
-                    b.HasOne("BookMyShow.Model.Seat", "Seat")
-                        .WithMany()
-                        .HasForeignKey("SeatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookMyShow.Model.Show", "Show")
-                        .WithMany("ShowSeats")
-                        .HasForeignKey("ShowId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Seat");
-
-                    b.Navigation("Show");
-                });
-
-            modelBuilder.Entity("BookMyShow.Model.ShowSeatTickets", b =>
-                {
-                    b.HasOne("BookMyShow.Model.ShowSeat", "ShowSeat")
-                        .WithMany("Tickets")
-                        .HasForeignKey("ShowSeatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookMyShow.Model.Ticket", "Ticket")
-                        .WithMany("Seats")
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ShowSeat");
-
-                    b.Navigation("Ticket");
-                });
-
             modelBuilder.Entity("BookMyShow.Model.ShowSeatType", b =>
                 {
                     b.HasOne("BookMyShow.Model.SeatType", "SeatType")
@@ -567,25 +386,6 @@ namespace BookMyShow.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("BookMyShow.Model.Ticket", b =>
-                {
-                    b.HasOne("BookMyShow.Model.Show", "Show")
-                        .WithMany()
-                        .HasForeignKey("ShowId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookMyShow.Model.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Show");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("BookMyShow.Model.User", b =>
                 {
                     b.HasOne("BookMyShow.Model.City", "City")
@@ -607,26 +407,9 @@ namespace BookMyShow.Migrations
                     b.Navigation("Seats");
                 });
 
-            modelBuilder.Entity("BookMyShow.Model.Show", b =>
-                {
-                    b.Navigation("ShowSeats");
-                });
-
-            modelBuilder.Entity("BookMyShow.Model.ShowSeat", b =>
-                {
-                    b.Navigation("Tickets");
-                });
-
             modelBuilder.Entity("BookMyShow.Model.Theater", b =>
                 {
                     b.Navigation("Halls");
-                });
-
-            modelBuilder.Entity("BookMyShow.Model.Ticket", b =>
-                {
-                    b.Navigation("Payments");
-
-                    b.Navigation("Seats");
                 });
 #pragma warning restore 612, 618
         }

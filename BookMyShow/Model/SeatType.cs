@@ -1,4 +1,4 @@
-﻿namespace BookMyShow.Models
+﻿namespace BookMyShow.Model
 {
     public class SeatType : Auditable
     {

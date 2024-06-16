@@ -1,6 +1,6 @@
 ﻿using BookMyShow.Enum;
 
-namespace BookMyShow.Models
+namespace BookMyShow.Model
 {
     public class Show : Auditable
     {
@@ -9,8 +9,10 @@ namespace BookMyShow.Models
         public Hall Hall { get; set; }
         public Movie Movie { get; set; }
         public Language Language { get; set; }
-        public Feature Feature { get; set; }
+        //public List<Feature> Features { get; set; }
         public List<ShowSeat> ShowSeats { get; set; }
-        public List<ShowSeatType> ShowSeatTypes { get; set; }
+        public int HallId { get; set; }
+        public int MovieId { get; set; }
+        public int LanguageId { get; set; }
     }
 }

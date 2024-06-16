@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BookMyShow.Models
+namespace BookMyShow.Model
 {
     public abstract class Auditable
     {

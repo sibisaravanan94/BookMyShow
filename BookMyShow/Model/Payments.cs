@@ -1,6 +1,6 @@
 ﻿using BookMyShow.Enum;
 
-namespace BookMyShow.Models
+namespace BookMyShow.Model
 {
     public class Payments : Auditable
     {
@@ -9,5 +9,9 @@ namespace BookMyShow.Models
         public float Amount { get; set; }
         public PaymentProvide Provider { get; set; }
         public string ReferenceID { get; set; }
+        public int TicketId { get; set; }
+        public int PaymentStatusId { get; set; }
+        public int PaymentTypeId { get; set; }
+        public int PaymentProvideId { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace BookMyShow.Models
+﻿using BookMyShow.Enum;
+
+namespace BookMyShow.Models
 {
     public class Hall : Auditable
     {

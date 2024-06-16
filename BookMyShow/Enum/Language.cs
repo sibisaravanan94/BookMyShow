@@ -1,4 +1,4 @@
-﻿namespace BookMyShow.Models
+﻿namespace BookMyShow.Enum
 {
     public enum Language
     {
